@@ -1,0 +1,26 @@
+--exclude=.git
+--exclude=.hg
+--exclude=.svn
+
+# Conda environment exclusions, for faster ctags loads.
+--exclude=env*/include
+--exclude=env*/share
+--exclude=env*/**/*.js
+--exclude=env*/**/*.css
+--exclude=env*/**/*.html
+--exclude=env*/**/*.so
+--exclude=env*/**/*.dylib
+--exclude=env*/lib/**/tests
+--exclude=env*/etc
+--exclude=env*/sbin
+--exclude=env*/bin
+--exclude=env*/man
+--exclude=env*/conda-meta
+--exclude=__pycache__
+--exclude=*.pyc
+--langmap=python:+.pyx     # Allow pyrex files to be interpreted as python
+
+# Javascript configuration
+--langmap=JavaScript:+.jsx  # Allow .jsx files to be interpreted as javascript by ctags.
+--exclude=node_modules
+--options=/Users/jdouglass/workspace/phargogh/dotfiles/javascript/ctags-patterns-for-javascript/ctagsrc
