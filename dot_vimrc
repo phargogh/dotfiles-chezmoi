@@ -1,1 +1,278 @@
-/Users/jdouglass/.jd-config/.vimrc
+" An example for a vimrc file.
+"
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	2017 Sep 20
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"	      for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"	    for OpenVMS:  sys$login:.vimrc
+
+"call plug#begin('~/vimfiles/autoload')
+"Plug 'pangloss/vim-javascript'
+"call plug#env()
+
+
+" When started as "evim", evim.vim will already have done these settings.
+if v:progname =~? "evim"
+  finish
+endif
+
+" Get the defaults that most users want.
+source $VIMRUNTIME/defaults.vim
+
+if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file (restore to previous version)
+  if has('persistent_undo')
+    set undofile	" keep an undo file (undo changes after closing)
+  endif
+endif
+
+if &t_Co > 2 || has("gui_running")
+  " Switch on highlighting the last used search pattern.
+  set hlsearch
+endif
+
+if has("gui_running")
+  if has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
+
+  augroup END
+
+else
+
+  set autoindent        " always set autoindenting on
+
+endif " has("autocmd")
+
+" Add optional packages.
+"
+" The matchit plugin makes the % command work better, but it is not backwards
+" compatible.
+" The ! means the package won't be loaded right away but when plugins are
+" loaded during initialization.
+if has('syntax') && has('eval')
+  packadd! matchit
+endif
+
+" James' Configuration options.
+set nu
+
+autocmd BufWritePre * %s/\s\+$//e  " Remove trailing whitespace.
+
+" ts - tabstop
+" sts - softtabstop: make the spaces feel like real tabs
+" sw - shiftwidth
+autocmd FileType c set ts=4 sw=4 sts=4
+autocmd Filetype dockerfile set ts=4 sw=4 sts=4
+autocmd Filetype javascript set ts=2 sw=2 sts=2
+autocmd Filetype javascriptreact set ts=2 sw=2 sts=2
+autocmd Filetype make set ts=4 sw=4 sts=4
+autocmd Filetype python set ts=4 sw=4 sts=4 textwidth=79
+autocmd Filetype yaml set ts=4 sw=4 sts=4
+autocmd Filetype plaintex set ts=4 sw=4 sts=4
+autocmd Filetype tex set ts=4 sw=4 sts=4
+autocmd Filetype sh set ts=4 sw=4 sts=4
+autocmd Filetype arduino set ts=4 sw=4 sts=4
+
+set expandtab  " always expand tabs.
+set smarttab
+set cindent
+
+" Make tab characters easier to see
+set list
+set listchars=tab:>-
+
+" Enable spelling
+set spell spelllang=en_us
+
+" Spelunker configuration
+let g:spelunker_check_type = 2  " check spelling for only the words that are visible.
+let g:spelunker_white_list_for_user = ['phargogh', 'pygeoprocessing', 'taskgraph', 'numpy', 'nodata']
+
+
+" Set up the clipboard to make sure I can yank to somewhere.
+if has('win32')
+    set clipboard=unnamed
+else
+    if system('uname -s') == "Darwin\n"
+        set clipboard=unnamed "OSX
+    else
+        set clipboard=unnamedplus "Linux
+    endif
+endif
+
+" Backspace fix.  See https://vi.stackexchange.com/a/2163/27535
+set backspace=indent,eol,start
+
+" Vim-Plug
+" (including automatic installation)
+" This path is used on Windows.  On Linux (vim8), the path should be
+" ~/.vim/autoload/plug.vim
+if has('win32')
+    if empty(glob('~\vimfiles\autoload\plug.vim'))
+        silent !curl -fLo ~/vimfiles/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+    let VIM_PLUGGED_DIR = "~\\vimfiles\\plugged"
+else
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+    let VIM_PLUGGED_DIR = "~/vimfiles/plugged"
+endif
+
+call plug#begin(VIM_PLUGGED_DIR)
+Plug 'dense-analysis/ale'
+Plug 'vim-python/python-syntax'
+Plug 'lifepillar/vim-solarized8'
+Plug 'freeo/vim-kalisi'
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'ap/vim-css-color'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+"Plug 'kamykn/spelunker.vim'
+"Plug 'davidhalter/jedi-vim'
+Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+Plug 'mhinz/vim-signify'
+Plug 'vim-syntastic/syntastic'
+Plug 'sudar/vim-arduino-syntax'
+call plug#end()
+
+" Colorscheme options
+" enable 256-color mode
+set t_Co=256
+"colorscheme solarized8
+colorscheme kalisi
+set background=dark
+let g:solarized_use16 = 1
+set cursorline
+
+" python-linter options
+let g:python_highlight_all = 1
+
+" ALE options
+" NOTE: the python linters will only work if they're available.
+" So, run vim from within an activated python environment with these things
+" installed.
+let g:ale_linters = {
+    \   'python': ['flake8', 'pycodestyle', 'pydocstyle'],
+    \   'javascript': ['eslint'],
+    \}
+let g:ale_fixers = {
+    \   'python': ['autopep8',
+    \              'remove_trailing_lines',
+    \              'trim_whitespace']
+    \}
+let g:ale_fix_on_save = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_virtualenv_dir_names = ['env37-conda', 'env36-conda', 'env']
+let g:ale_python_pydocstyle_options = '--convention=google'
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 1
+
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '👾' : printf(
+        \   '😞 %dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+
+set laststatus=2  " always display the status line.
+"set statusline=
+"set statusline+=%m
+"set statusline+=\ %f
+"set statusline+=%=
+"set statusline+=\ %{LinterStatus()}
+function! StatuslineGit()
+  let l:branchname = system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+"set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\ [%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\ %{LinterStatus()}
+
+" Default to unix file endings, except for batfiles, which shoul be dos.
+au BufNewFile * set fileformat=unix
+au BufNewFile *.bat set fileformat=dos
+
+
+" Python-specific (and related languages) configuration
+set encoding=utf-8
+au BufNewFile *.py,*.pyx,*.pxd,*.c,*.h set fileformat=unix
+au BufNewFile,BufRead  *.py set filetype=python
+"au FileType python set omnifunc=pythoncomplete#Complete
+au FileType python syn keyword pythonDecorator True None False self
+au FileType python syn match keyword "\v<[A-Z0-9_]+>"
+"au BufNewFile,BufRead *.py,*.pyx,*.c,*.h match BadWhitespace /\s\+$/
+
+" Lower the timeout for python syntax searching for matching paren pairs.
+" This is normally set to 250, but this threshold was causing vim to take
+" several seconds to open a new line on a large python file.
+" See suggestion at https://github.com/vim/vim/issues/1098#issuecomment-484197849
+let g:pyindent_searchpair_timeout=10
+
+" Options for vim-python/python-syntax
+"let g:python_highlight_all = 1
+
+" Node.js configuration
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+
+" Toggle between absolute and relative line numbering.
+:set number relativenumber
+
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
+" Look for a tags file in CWD, then in each parent repo until one is found.
+" https://stackoverflow.com/a/19331411/299084
+set tags=./tags;,tags;
+
+" Folding!
+"
+" Display characters in the gutter when folds are open or closed.
+set foldcolumn=1
