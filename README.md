@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* **Debian** `apt-get update && sudo apt-get install curl git`
+* **Debian** `apt-get update && sudo apt-get install curl git sudo`
 
 
 ## Installation
