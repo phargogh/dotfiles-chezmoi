@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply=https://github.com/phargogh/dotfiles-chezmoi.git
+sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply "https://github.com/phargogh/dotfiles-chezmoi.git"
 ```
 
 ## Development Environment
