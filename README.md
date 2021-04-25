@@ -1,5 +1,10 @@
 # Dotfiles Configuration
 
+## Prerequisites
+
+* **Debian** `apt-get update && sudo apt-get install curl git`
+
+
 ## Installation
 
 ```bash
