@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-* **Debian (as root)** `apt-get update && apt-get install curl git sudo`
-* **Debian (as user)** `apt-get update && sudo apt-get install curl git sudo`
+* **Debian (as root)** `apt-get update && apt-get install -y curl git sudo`
+* **Debian (as user)** `apt-get update && sudo apt-get install -y curl git sudo`
 
 
 ## Installation
