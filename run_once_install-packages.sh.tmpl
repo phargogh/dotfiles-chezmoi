@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 apt-get update
-sudo apt-get install vim mercurial exuberant-ctags wget
+sudo apt-get install -y vim mercurial exuberant-ctags wget
 
 # Install miniconda
 MINICONDA_FILE=Miniconda3-py39_4.9.2-Linux-x86_64.sh
