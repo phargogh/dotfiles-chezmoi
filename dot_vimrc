@@ -276,3 +276,6 @@ set tags=./tags;,tags;
 "
 " Display characters in the gutter when folds are open or closed.
 set foldcolumn=1
+
+" Re-render the syntax highlighting whenever loading a buffer.
+autocmd BufEnter * :syntax sync fromstart
