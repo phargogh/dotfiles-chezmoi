@@ -161,10 +161,16 @@ call plug#end()
 " Colorscheme options
 " enable 256-color mode
 set t_Co=256
-"colorscheme solarized8
-colorscheme kalisi
+try
+    colorscheme kalisi
+    " colorscheme solarized
+    " let g:solarized_use16 = 1
+catch /^Vim\%((\a\+)\)\=:E185/
+    " Fallback to a standard colorscheme
+    colorscheme elflord
+endtry
+
 set background=dark
-let g:solarized_use16 = 1
 set cursorline
 
 " python-linter options
