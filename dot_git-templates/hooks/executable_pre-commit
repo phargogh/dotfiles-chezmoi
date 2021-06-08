@@ -3,6 +3,10 @@
 GMAIL="jamesdouglassusa@gmail.com"
 STANFORD="jdouglass@stanford.edu"
 
+# Allows us to read user input below, assigns stdin to keyboard
+# https://stackoverflow.com/a/10015707/299084
+exec < /dev/tty
+
 if git config --local user.email
 then
     echo "Local address already set: $(git config --local user.email)"
