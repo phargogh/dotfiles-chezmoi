@@ -82,12 +82,15 @@ autocmd Filetype dockerfile set ts=4 sw=4 sts=4
 autocmd Filetype javascript set ts=2 sw=2 sts=2
 autocmd Filetype javascriptreact set ts=2 sw=2 sts=2
 autocmd Filetype make set ts=4 sw=4 sts=4
+autocmd Filetype html set ts=4 sw=4 sts=4
 autocmd Filetype python set ts=4 sw=4 sts=4 textwidth=79
+autocmd Filetype cpp set ts=4 sw=4 sts=4 textwidth=79
 autocmd Filetype yaml set ts=4 sw=4 sts=4
 autocmd Filetype plaintex set ts=4 sw=4 sts=4
 autocmd Filetype tex set ts=4 sw=4 sts=4
 autocmd Filetype sh set ts=4 sw=4 sts=4
 autocmd Filetype arduino set ts=4 sw=4 sts=4
+autocmd Filetype text set ts=4 sw=4 sts=4
 
 set expandtab  " always expand tabs.
 set smarttab
@@ -95,7 +98,7 @@ set cindent
 
 " Make tab characters easier to see
 set list
-set listchars=tab:>-
+set listchars=tab:>-,trail:.
 
 " Enable spelling
 set spell spelllang=en_us
@@ -156,22 +159,31 @@ Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
 Plug 'mhinz/vim-signify'
 Plug 'vim-syntastic/syntastic'
 Plug 'sudar/vim-arduino-syntax'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'tibabit/vim-templates'
+Plug 'vim-scripts/indentpython.vim'
+"Plug 'nathanaelkane/vim-indent-guides'
+Plug 'thaerkh/vim-indentguides'
+Plug 'vim-scripts/pythoncomplete'
+Plug 'SirVer/ultisnips'
 call plug#end()
 
 " Colorscheme options
 " enable 256-color mode
 set t_Co=256
-try
-    colorscheme kalisi
-    " colorscheme solarized
-    " let g:solarized_use16 = 1
-catch /^Vim\%((\a\+)\)\=:E185/
-    " Fallback to a standard colorscheme
-    colorscheme elflord
-endtry
-
+"colorscheme solarized8
+colorscheme kalisi
 set background=dark
+let g:solarized_use16 = 1
 set cursorline
+
+"nathanaelkane/vim-indent-guides configuration
+hi IndentGuidesOdd ctermbg=239
+hi IndentGuidesEven ctermbg=238  " match kalisi background
+let g:indent_guides_enable_on_vim_startup = 1  " start on vim startup
+
+" Ultisnips options
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
 " python-linter options
 let g:python_highlight_all = 1
@@ -186,7 +198,9 @@ let g:ale_linters = {
     \}
 let g:ale_fixers = {
     \   'python': ['autopep8',
+    \              'isort',
     \              'remove_trailing_lines',
+    \              'autoimport',
     \              'trim_whitespace']
     \}
 let g:ale_fix_on_save = 1
@@ -195,6 +209,7 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_virtualenv_dir_names = ['env37-conda', 'env36-conda', 'env']
 let g:ale_python_pydocstyle_options = '--convention=google'
+let g:ale_python_isort_options = '--settings-path=/Users/jdouglass'
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
 
@@ -237,8 +252,6 @@ set statusline+=\ %p%%
 set statusline+=\ %l:%c
 set statusline+=\ %{LinterStatus()}
 
-" Default to unix file endings, except for batfiles, which shoul be dos.
-au BufNewFile * set fileformat=unix
 au BufNewFile *.bat set fileformat=dos
 
 
@@ -258,11 +271,12 @@ au FileType python syn match keyword "\v<[A-Z0-9_]+>"
 let g:pyindent_searchpair_timeout=10
 
 " Options for vim-python/python-syntax
-"let g:python_highlight_all = 1
+let g:python_highlight_all = 1
 
 " Node.js configuration
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+autocmd FileType javascript set omnifunc=syntaxcomplete#Complete
+autocmd FileType javascriptreact set omnifunc=syntaxcomplete#Complete
 
 
 " Toggle between absolute and relative line numbering.
@@ -283,5 +297,5 @@ set tags=./tags;,tags;
 " Display characters in the gutter when folds are open or closed.
 set foldcolumn=1
 
-" Re-render the syntax highlighting whenever loading a buffer.
-autocmd BufEnter * :syntax sync fromstart
+" disable syntax highlighting on long RST files.
+autocmd BufWinEnter *.rst if line2byte(line("$") + 1) > 1000 | syntax clear | endif
