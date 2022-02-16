@@ -12,6 +12,8 @@
 sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply "https://github.com/phargogh/dotfiles-chezmoi.git"
 ```
 
+Note that the above works great on `git-bash` on Windows, and I can use chezmoi through cmder as usual.
+
 ## Development Environment
 
 * Vim config, with `vim-plug` plugins installed

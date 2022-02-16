@@ -72,9 +72,17 @@ endif
 " James' Configuration options.
 set nu
 
-" Windows default encoding is latin-1, which is usually not what we want.
 if has("win32") || has("win64")
+  " Windows default encoding is latin-1, which is usually not what we want.
   set encoding=utf-8
+
+  " If we're on windows, assume that we want to use our actuall python 3.10, which is neede for ultisnips.
+  " These paths are where the default python installer puts the python binaries
+  " and DLL when installing for just this user.  If I don't specify these
+  " paths (AND ADD THEM TO THE PATH AND RESTART THE SHELL) then UltiSnips
+  " throws so so many errors.
+  let &pythonthreehome=C:\Users\jdouglass\AppData\Local\Programs\Python\Python310
+  let &pythonthreedll=C:\Users\jdouglass\AppData\Local\Programs\Python\Python310\python310.dll
 endif
 
 autocmd BufWritePre * %s/\s\+$//e  " Remove trailing whitespace.
