@@ -72,6 +72,11 @@ endif
 " James' Configuration options.
 set nu
 
+" Windows default encoding is latin-1, which is usually not what we want.
+if has("win32") || has("win64")
+  set encoding=utf-8
+endif
+
 autocmd BufWritePre * %s/\s\+$//e  " Remove trailing whitespace.
 
 " ts - tabstop
