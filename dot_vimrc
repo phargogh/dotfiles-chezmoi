@@ -81,8 +81,8 @@ if has("win32") || has("win64")
   " and DLL when installing for just this user.  If I don't specify these
   " paths (AND ADD THEM TO THE PATH AND RESTART THE SHELL) then UltiSnips
   " throws so so many errors.
-  let &pythonthreehome=C:\Users\jdouglass\AppData\Local\Programs\Python\Python310
-  let &pythonthreedll=C:\Users\jdouglass\AppData\Local\Programs\Python\Python310\python310.dll
+  let &pythonthreehome="C:\Users\jdouglass\AppData\Local\Programs\Python\Python310"
+  let &pythonthreedll="C:\Users\jdouglass\AppData\Local\Programs\Python\Python310\python310.dll"
 endif
 
 autocmd BufWritePre * %s/\s\+$//e  " Remove trailing whitespace.
