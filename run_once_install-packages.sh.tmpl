@@ -14,8 +14,6 @@ then
     bash $MINICONDA_FILE
 fi
 
-git config --global core.excludesFile '~/.gitignore'
-
 {{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 
@@ -35,8 +33,10 @@ then
     bash $MINICONDA_FILE
 fi
 
-git config --global core.excludesFile '~/.gitignore'
 
 {{ end -}}
+
+git config --global core.excludesFile '~/.gitignore'
+vim +PlugInstall +qall
 
 

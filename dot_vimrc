@@ -179,6 +179,7 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'thaerkh/vim-indentguides'
 Plug 'vim-scripts/pythoncomplete'
 Plug 'SirVer/ultisnips'
+Plug 'hashivim/vim-terraform'
 call plug#end()
 
 " Colorscheme options
