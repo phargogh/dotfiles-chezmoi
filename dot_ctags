@@ -21,6 +21,7 @@
 --langmap=python:+.pyx     # Allow pyrex files to be interpreted as python
 
 # Javascript configuration
+--map-javascript=.jsx  # Allow .jsx files to be interpreted as javascript
 --langmap=JavaScript:+.jsx  # Allow .jsx files to be interpreted as javascript by ctags.
 --exclude=node_modules
 --options=/Users/jdouglass/workspace/phargogh/dotfiles/javascript/ctags-patterns-for-javascript/ctagsrc
