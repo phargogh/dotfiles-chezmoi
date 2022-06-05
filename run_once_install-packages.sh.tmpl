@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 apt-get update
-sudo apt-get install -y vim mercurial exuberant-ctags wget git
+sudo apt-get install -y vim mercurial exuberant-ctags wget git build-essential
 
 # Install miniconda
 if ! conda --version
