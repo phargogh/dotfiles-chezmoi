@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 apt-get update
-sudo apt-get install -y vim mercurial exuberant-ctags wget
+sudo apt-get install -y vim mercurial exuberant-ctags wget git
 
 # Install miniconda
 if ! conda --version
@@ -21,7 +21,7 @@ fi
 if ! brew --version
 then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    brew install coreutils wget
+    brew install coreutils wget vim git
 fi
 
 
