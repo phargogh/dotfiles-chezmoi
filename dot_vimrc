@@ -167,7 +167,7 @@ Plug 'ap/vim-css-color'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 "Plug 'kamykn/spelunker.vim'
-"Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
 Plug 'mhinz/vim-signify'
 Plug 'vim-syntastic/syntastic'
@@ -180,6 +180,12 @@ Plug 'thaerkh/vim-indentguides'
 Plug 'vim-scripts/pythoncomplete'
 Plug 'SirVer/ultisnips'
 Plug 'hashivim/vim-terraform'
+Plug 'vim-scripts/OmniCppComplete'
+
+" programmer dictionary for languages.
+Plug 'psliwka/vim-dirtytalk', { 'do': ':DirtytalkUpdate' }
+set spelllang=en,programming
+
 call plug#end()
 
 " Colorscheme options
@@ -291,6 +297,11 @@ let g:python_highlight_all = 1
 filetype plugin on
 autocmd FileType javascript set omnifunc=syntaxcomplete#Complete
 autocmd FileType javascriptreact set omnifunc=syntaxcomplete#Complete
+
+" See installation instructions in :h omnicppcomplete
+autocmd FileType cpp set omnifunc=syntaxcomplete#Complete
+set completeopt=longest,menuone
+set nocp
 
 
 " Toggle between absolute and relative line numbering.

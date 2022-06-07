@@ -114,6 +114,7 @@ source $ZSH/oh-my-zsh.sh
 alias qgis='f(){ conda activate qgis && QT_MAC_WANTS_LAYER=1 qgis "$@"; conda deactivate; unset -f f}; f'
 #alias qgis="conda activate qgis && QT_MAC_WANTS_LAYER=1 qgis $@; conda deactivate"
 alias vim="/opt/homebrew/bin/vim"
+alias vscode="/opt/homebrew/bin/code"
 
 if [[ "$(arch)" == "arm64" ]]
 then
