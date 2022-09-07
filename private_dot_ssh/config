@@ -1,0 +1,3 @@
+Host login.sherlock.stanford.edu
+    ControlMaster auto
+    ControlPath ~/.ssh/%l%r@%h:%p
