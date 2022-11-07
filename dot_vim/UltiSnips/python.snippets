@@ -1,5 +1,62 @@
 snippet __main "If dunder-name dequals dunder-main"
 
 if __name__ == '__main__':
-	$1
+    $1
+endsnippet
+
+global !p
+import importlib
+import subprocess
+import json
+import os
+
+def get_func_params(mod_and_funcname):
+    tabstop = 4
+    retvalue = "\n"
+    # TODO: look up function parameters from the same source file;
+    # non-installed.
+    if t:
+        funcname_only = mod_and_funcname.split('.')[-1]
+        modulename = '.'.join(mod_and_funcname.split('.')[:-1])
+        if not modulename:
+            return ""
+        try:
+            module = importlib.import_module(modulename)
+            func_ref = getattr(module, funcname_only)
+            params = {
+                name: param.default
+                    if param.default != inspect.Parameter.empty
+                    else None
+                for (name, param) in inspect.signature(
+                    func_ref).parameters.items()}
+        except ModuleNotFoundError:
+            # if the target module/function is not in stdlib, try a subprocess
+            # call to python in the current working directory.
+            params = json.loads(subprocess.run(
+            f'{os.getcwd()}/env310/bin/python -c "import json,importlib,inspect;print('
+                'json.dumps({kwarg:val.default '
+                'if val.default!=inspect.Parameter.empty '
+                'else None '
+                'for (kwarg, val) in inspect.signature('
+                f'getattr(importlib.import_module(\'{modulename}\'),'
+                f'\'{funcname_only}\')).parameters.items()'
+                '}))"'
+            , shell=True, capture_output=True, cwd=os.getcwd()).stdout)
+
+        return params
+endglobal
+
+snippet 'graph.add_task\(([\w.]*)' "add a taskgraph task" r
+_ = graph.add_task(
+    `!p snip.rv=match.group(1)`,
+    kwargs={`!p
+snip >> 2
+for paramname, default_value in get_func_params(match.group(1)).items():
+    snip += f'"{paramname}": {default_value},'
+`
+    },
+    task_name='',
+    target_path_list=[],
+    dependent_task_list=[]
+)
 endsnippet
