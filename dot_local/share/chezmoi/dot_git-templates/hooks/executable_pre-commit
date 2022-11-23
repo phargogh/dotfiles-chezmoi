@@ -1,0 +1,30 @@
+#!/bin/bash
+
+GMAIL="jamesdouglassusa@gmail.com"
+STANFORD="jdouglass@stanford.edu"
+
+if git config --local user.email
+then
+    echo "Local address already set: $(git config --local user.email)"
+else
+    PS3='Please select the user.email address to use: '
+    options=( $GMAIL $STANFORD )
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            "$GMAIL")
+                set -x
+                git config --local user.email $GMAIL
+                set +x
+                break
+                ;;
+            "$STANFORD")
+                set -x
+                git config --local user.email $STANFORD
+                set +x
+                break
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+fi
