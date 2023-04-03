@@ -6,12 +6,8 @@ sudo apt-get install -y vim mercurial exuberant-ctags wget git build-essential
 # Install miniconda
 if ! conda --version
 then
-    MINICONDA_FILE=Miniconda3-py39_4.9.2-Linux-x86_64.sh
-    wget https://repo.anaconda.com/miniconda/$MINICONDA_FILE
-
-    # check the SHA256sum of Miniconda before executing.
-    echo "536817d1b14cb1ada88900f5be51ce0a5e042bae178b5550e62f61e223deae7c $MINICONDA_FILE" | sha256sum --check || exit 1
-    bash $MINICONDA_FILE
+    curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+    bash Mambaforge-$(uname)-$(uname -m).sh
 fi
 
 {{ else if eq .chezmoi.os "darwin" -}}
@@ -24,13 +20,10 @@ then
     brew install coreutils wget vim git
 fi
 
-
 if ! conda --version
 then
-    MINICONDA_FILE=Miniconda3-py39_4.9.2-MacOSX-x86_64.sh
-    wget https://repo.anaconda.com/miniconda/$MINICONDA_FILE
-    echo "b3bf77cbb81ee235ec6858146a2a84d20f8ecdeb614678030c39baacb5acbed1 $MINICONDA_FILE" | sha256sum --check || exit 1
-    bash $MINICONDA_FILE
+    brew install mambaforge
+    conda init "$(basename "${SHELL}")"
 fi
 
 
