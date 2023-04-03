@@ -98,12 +98,14 @@ autocmd Filetype make set ts=4 sw=4 sts=4
 autocmd Filetype html set ts=4 sw=4 sts=4
 autocmd Filetype python set ts=4 sw=4 sts=4 textwidth=79
 autocmd Filetype cpp set ts=4 sw=4 sts=4 textwidth=79
+autocmd Filetype yml set filetype=yaml
 autocmd Filetype yaml set ts=4 sw=4 sts=4
 autocmd Filetype plaintex set ts=4 sw=4 sts=4
 autocmd Filetype tex set ts=4 sw=4 sts=4
 autocmd Filetype sh set ts=4 sw=4 sts=4
 autocmd Filetype arduino set ts=4 sw=4 sts=4
 autocmd Filetype text set ts=4 sw=4 sts=4
+autocmd Filetype vrt set filetype=xml ts=4 sw=4 sts=4
 
 set expandtab  " always expand tabs.
 set smarttab
@@ -181,6 +183,7 @@ Plug 'vim-scripts/pythoncomplete'
 Plug 'SirVer/ultisnips'
 Plug 'hashivim/vim-terraform'
 Plug 'vim-scripts/OmniCppComplete'
+Plug 'raivivek/vim-snakemake'
 
 " programmer dictionary for languages.
 Plug 'psliwka/vim-dirtytalk', { 'do': ':DirtytalkUpdate' }
@@ -303,7 +306,6 @@ autocmd FileType cpp set omnifunc=syntaxcomplete#Complete
 set completeopt=longest,menuone
 set nocp
 
-
 " Toggle between absolute and relative line numbering.
 :set number relativenumber
 
@@ -324,3 +326,8 @@ set foldcolumn=1
 
 " disable syntax highlighting on long RST files.
 autocmd BufWinEnter *.rst if line2byte(line("$") + 1) > 1000 | syntax clear | endif
+
+" When in an active pane, set the status line background color something
+" visible.
+hi StatusLine ctermfg=DarkGray
+hi StatusLineActive ctermfg=Magenta

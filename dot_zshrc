@@ -126,17 +126,21 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/jdouglass/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/jdouglass/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/jdouglass/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/jdouglass/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/jdouglass/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/Users/jdouglass/mambaforge/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/jdouglass/miniconda3/bin:$PATH"
+        export PATH="/Users/jdouglass/mambaforge/bin:$PATH"
     fi
 fi
 unset __conda_setup
+
+if [ -f "/Users/jdouglass/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/Users/jdouglass/mambaforge/etc/profile.d/mamba.sh"
+fi
 # <<< conda initialize <<<
 
 # for pushing to GHCR.  Is there a way to encrypt this and save to
