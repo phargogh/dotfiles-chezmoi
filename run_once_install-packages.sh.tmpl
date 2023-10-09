@@ -1,7 +1,15 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 apt-get update
-sudo apt-get install -y vim mercurial exuberant-ctags wget git build-essential
+sudo apt-get install -y vim mercurial exuberant-ctags wget git build-essential zsh
+
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# install vcprompt, as a bash fallback
+mkdir -f ~/bin
+curl -sL https://github.com/djl/vcprompt/raw/master/bin/vcprompt > ~/bin/vcprompt
+chmod 755 ~/bin/vcprompt
 
 # Install miniconda
 if ! conda --version
@@ -19,6 +27,14 @@ then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     brew install coreutils wget vim git
 fi
+
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# install vcprompt, as a bash fallback
+mkdir -f ~/bin
+curl -sL https://github.com/djl/vcprompt/raw/master/bin/vcprompt > ~/bin/vcprompt
+chmod 755 ~/bin/vcprompt
 
 if ! conda --version
 then
