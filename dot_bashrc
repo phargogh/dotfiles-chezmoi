@@ -167,12 +167,7 @@ fi
 #export HGEDITOR="$HOME/.hgeditor"
 
 # The next line updates PATH for the Google Cloud SDK.
-source '/Users/jdouglass/google-cloud-sdk/path.bash.inc'
+source '$HOME/google-cloud-sdk/path.bash.inc'
 
 # The next line enables shell command completion for gcloud.
-source '/Users/jdouglass/google-cloud-sdk/completion.bash.inc'
-
-# tabtab source for electron-forge package
-# uninstall by removing these lines or running `tabtab uninstall electron-forge`
-[ -f /Users/jdouglass/workspace/jdouglass/hra_nodejs_experiment/hra-electron/node_modules/tabtab/.completions/electron-forge.bash ] && . /Users/jdouglass/workspace/jdouglass/hra_nodejs_experiment/hra-electron/node_modules/tabtab/.completions/electron-forge.bash
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source '$HOME/google-cloud-sdk/completion.bash.inc'
