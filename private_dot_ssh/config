@@ -1,7 +1,9 @@
-Host login.sherlock.stanford.edu
-    ControlMaster auto
-    ControlPath ~/.ssh/%l%r@%h:%p
-
 Host sherlock
     HostName login.sherlock.stanford.edu
     User jadoug06
+    ControlMaster auto
+    ControlPath ~/.ssh/%l%r@%h:%p
+
+Host login.sherlock.stanford.edu
+    ControlMaster auto
+    ControlPath ~/.ssh/%l%r@%h:%p
